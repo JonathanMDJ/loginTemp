@@ -49,6 +49,22 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', userSchema);
 
+
+app.get('/api/sensor/update-interval', (req, res) => {
+  // Generar número aleatorio entre 4 y 60 segundos
+  const minSeconds = 4;
+  const maxSeconds = 60;
+  const randomInterval = Math.floor(Math.random() * (maxSeconds - minSeconds + 1)) + minSeconds;
+  
+  res.json({
+    success: true,
+    interval: randomInterval,  // Tiempo en segundos
+    message: `Actualizar cada ${randomInterval} segundos`,
+    timestamp: new Date().toISOString()
+  });
+});
+
+
 // ============================================
 // RUTAS DE AUTENTICACIÓN
 // ============================================
@@ -153,3 +169,4 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(` Servidor corriendo en puerto ${PORT}`);
 });
+
